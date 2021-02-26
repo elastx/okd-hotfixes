@@ -1,7 +1,7 @@
 FROM registry.access.redhat.com/openshift3/metrics-hawkular-metrics:v3.10
 
 COPY hawkular-metrics-wrapper.sh /opt/hawkular/scripts/hawkular-metrics-wrapper.sh
-#RUN chmod 777 /opt/hawkular/scripts/hawkular-metrics-wrapper.sh
+RUN chmod 777 /opt/hawkular/scripts/hawkular-metrics-wrapper.sh
 
 # Change the permissions so that the user running the image can start up Hawkular Metrics
 USER 1000
