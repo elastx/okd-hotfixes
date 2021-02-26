@@ -71,8 +71,7 @@ cacrt="/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
 status_code=$(curl --cacert ${cacrt} --max-time 10 --connect-timeout 10 -L -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer ${token}" $url)
 if [ "$status_code" != 200 ]; then
   if [ "$status_code" == "403" ]; then
-    echo "Error: the service account for Hawkular Metrics does not have permission to view resources in this namespace. View permissions are required for Hawkular Metrics to functio
-n properly."
+    echo "Error: the service account for Hawkular Metrics does not have permission to view resources in this namespace. View permissions are required for Hawkular Metrics to function properly."
     echo "Usually this can be resolved by running: oc adm policy add-role-to-user view system:serviceaccount:${POD_NAMESPACE}:hawkular -n ${POD_NAMESPACE}"
   elif [ "$status_code" == "401" ]; then
     echo "Error: the credentials for Hawkular Metrics are not valid."
@@ -162,8 +161,7 @@ if [ $? != 0 ]; then
     exit 1
 fi
 echo "Converting the PKCS12 keystore into a Java Keystore"
-${KEYTOOL_COMMAND} -v -importkeystore -srckeystore ${PKCS12_FILE} -srcstoretype PKCS12 -destkeystore ${KEYSTORE} -deststoretype JKS -deststorepass ${KEYSTORE_PASSWORD} -srcstorepass
- ${KEYSTORE_PASSWORD}
+${KEYTOOL_COMMAND} -v -importkeystore -srckeystore ${PKCS12_FILE} -srcstoretype PKCS12 -destkeystore ${KEYSTORE} -deststoretype JKS -deststorepass ${KEYSTORE_PASSWORD} -srcstorepass ${KEYSTORE_PASSWORD}
 if [ $? != 0 ]; then
     echo "Failed to create a Java Keystore file with the service-specific certificate. Aborting."
     exit 1
